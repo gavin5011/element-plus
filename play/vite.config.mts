@@ -48,9 +48,15 @@ export default defineConfig(async ({ mode }) => {
       port: 3000,
       host: true,
       https: !!env.HTTPS ? {} : false,
+      // Allow BrowserStack Local tunnel to reach this dev server.
+      // Vite 5+ defaults `allowedHosts` to localhost only (DNS-rebinding
+      // protection); BS tunnel may rewrite Host header so requests get rejected.
+      allowedHosts: true,
+      cors: true,
     },
     build: {
       sourcemap: true,
+      target: 'chrome64',
     },
     plugins: [
       vue(),
@@ -69,6 +75,9 @@ export default defineConfig(async ({ mode }) => {
 
     optimizeDeps: {
       include: ['vue', '@vue/shared', ...dependencies, ...optimizeDeps],
+      esbuildOptions: {
+        target: 'chrome64',
+      },
     },
     esbuild: {
       target: 'chrome64',
