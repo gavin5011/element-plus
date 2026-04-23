@@ -54,6 +54,7 @@
       <div style="width: 220px;">
         <el-menu
           data-testid="menu-state-target"
+          mode="vertical"
           :collapse="collapse"
           default-active="1"
         >

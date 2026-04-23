@@ -20,6 +20,7 @@
         class="scroll-box"
         v-infinite-scroll="loadMoreInteract"
         :infinite-scroll-distance="10"
+        :infinite-scroll-immediate="false"
       >
         <div v-for="n in interactItems" :key="n" class="row">Item {{ n }}</div>
       </div>
@@ -38,6 +39,7 @@
         class="scroll-box"
         v-infinite-scroll="loadMoreState"
         :infinite-scroll-disabled="disabled"
+        :infinite-scroll-immediate="false"
       >
         <div v-for="n in stateItems" :key="n" class="row">Item {{ n }}</div>
       </div>

@@ -64,7 +64,7 @@ const paneSize = ref('50%')
 const lastSize = ref(0)
 const vertical = ref(false)
 
-function onResize(sizes: number[]) {
+function onResize(_index: number, sizes: number[]) {
   lastSize.value = Math.round(sizes?.[0] ?? 0)
 }
 </script>

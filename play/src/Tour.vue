@@ -25,7 +25,7 @@
       </div>
     </section>
 
-    <el-tour v-model="interactOpen" @change="onChange" @close="onClose">
+    <el-tour data-testid="tour-interact-root" v-model="interactOpen" @change="onChange" @close="onClose">
       <el-tour-step :target="t1Ref?.$el" title="A" description="Step A" />
       <el-tour-step :target="t2Ref?.$el" title="B" description="Step B" />
       <el-tour-step :target="t3Ref?.$el" title="C" description="Step C" />
@@ -39,7 +39,7 @@
       <el-button data-testid="tour-state-target" ref="sRef" @click="stateOpen = true">Open state tour</el-button>
     </section>
 
-    <el-tour v-model="stateOpen" :show-arrow="showArrow">
+    <el-tour data-testid="tour-state-root" v-model="stateOpen" :show-arrow="showArrow">
       <el-tour-step :target="sRef?.$el" title="State" description="Arrow visibility variant" />
     </el-tour>
   </div>

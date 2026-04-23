@@ -42,6 +42,7 @@
       </el-button>
       <el-button data-testid="drawer-state-target" @click="stateVisible = true">Open state drawer</el-button>
       <el-drawer
+        data-testid="drawer-state-root"
         v-model="stateVisible"
         :direction="direction"
         title="State Drawer"

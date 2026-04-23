@@ -66,8 +66,8 @@ import { ref } from 'vue'
 const pickedHref = ref('')
 const horizontal = ref(false)
 
-function onClick(e: MouseEvent, link: { href: string }) {
-  pickedHref.value = link?.href ?? ''
+function onClick(_e: MouseEvent, href?: string) {
+  pickedHref.value = href ?? ''
 }
 </script>
 

@@ -9,7 +9,6 @@
         v-for="(src, i) in images"
         :key="`basic-${i}`"
         :src="src"
-        lazy
         style="width: 120px; height: 120px; margin-right: 8px"
       />
     </section>

@@ -4,8 +4,9 @@
 
     <section data-testid="scenario-basic">
       <h3>S1: Basic Render</h3>
-      <div style="width: 600px; height: 300px;" data-testid="tablev2-basic">
+      <div style="width: 600px; height: 300px;">
         <el-table-v2
+          data-testid="tablev2-basic"
           :columns="columns"
           :data="rows"
           :width="600"
@@ -16,13 +17,14 @@
 
     <section data-testid="scenario-interaction">
       <h3>S2: Interaction (Click row)</h3>
-      <div style="width: 600px; height: 300px;" data-testid="tablev2-interact">
+      <div style="width: 600px; height: 300px;">
         <el-table-v2
+          data-testid="tablev2-interact"
           :columns="columns"
           :data="rows"
           :width="600"
           :height="300"
-          @row-click="onRowClick"
+          :row-event-handlers="{ onClick: onRowClick }"
         />
       </div>
       <div data-testid="picked-value-display">
@@ -35,8 +37,9 @@
       <el-button data-testid="tablev2-toggle-sortBy" @click="toggleSort">
         Toggle sortBy: <span data-testid="state-indicator">{{ sortKey }}</span>
       </el-button>
-      <div style="width: 600px; height: 300px;" data-testid="tablev2-state-target">
+      <div style="width: 600px; height: 300px;">
         <el-table-v2
+          data-testid="tablev2-state-target"
           :columns="columns"
           :data="sortedRows"
           :width="600"

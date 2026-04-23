@@ -43,7 +43,7 @@ import { ref } from 'vue'
 
 const basicValue = ref(3)
 const pickedValue = ref(0)
-const stateValue = ref(2.5)
+const stateValue = ref(3)
 const allowHalf = ref(true)
 </script>
 
