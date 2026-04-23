@@ -1,2 +1,5 @@
-*
-!.gitignore
+# T-3h S2: override default playground gitignore to track demo pages + App router
+# for reproducibility per Option C worktree architecture
+# (original element-plus convention: * + !.gitignore = everything ignored except this file)
+*.log
+.DS_Store
