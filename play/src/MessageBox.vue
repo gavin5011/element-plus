@@ -36,7 +36,7 @@ const pickedValue = ref('(none)')
 const center = ref(false)
 
 function openAlert() {
-  ElMessageBox.alert('This is an alert message', 'Alert')
+  ElMessageBox.alert('This is an alert message', 'Alert').catch(() => {})
 }
 function openConfirm() {
   ElMessageBox.confirm('Proceed with operation?', 'Confirm')
@@ -49,7 +49,7 @@ function openPrompt() {
     .catch(() => { pickedValue.value = 'cancelled' })
 }
 function openStateAlert() {
-  ElMessageBox.alert('Centered alert', 'State Alert', { center: center.value })
+  ElMessageBox.alert('Centered alert', 'State Alert', { center: center.value }).catch(() => {})
 }
 </script>
 

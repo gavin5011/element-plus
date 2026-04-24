@@ -17,6 +17,7 @@
         data-testid="transfer-interact"
         v-model="pickedValue"
         :data="items"
+        :button-texts="['Move to left', 'Move to right']"
       />
       <div data-testid="picked-value-display">
         Value: <span data-testid="picked-value">{{ pickedValue.join(', ') || '(none)' }}</span>
