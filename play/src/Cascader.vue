@@ -52,6 +52,26 @@
         />
       </div>
     </section>
+
+    <section data-testid="scenario-cat4-cascader-leaf-casing">
+      <h3>
+        S4: cat4 fixture - Cascader leaf testid casing change (post-freeze
+        refactor)
+      </h3>
+      <p>
+        Spec was frozen with selector
+        <code>data-testid="cascader-option-itemA"</code> (camelCase). UI
+        refactor changed to kebab-case
+        <code
+          >data-testid="cat4-cascader-leaf-casing-cascader-option-item-a"</code
+        >. Spec selector no longer resolves.
+      </p>
+      <div class="cat4-cascader-leaf-row">
+        <span data-testid="cat4-cascader-leaf-casing-cascader-option-item-a"
+          >item-a (renamed from itemA)</span
+        >
+      </div>
+    </section>
   </div>
 </template>
 

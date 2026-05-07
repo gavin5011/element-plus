@@ -27,16 +27,27 @@
         label-width="80px"
       >
         <el-form-item label="Name" prop="name">
-          <el-input v-model="interactModel.name" placeholder="Name (required)" />
+          <el-input
+            v-model="interactModel.name"
+            placeholder="Name (required)"
+          />
         </el-form-item>
         <el-form-item label="Email" prop="email">
-          <el-input v-model="interactModel.email" placeholder="Email (required)" />
+          <el-input
+            v-model="interactModel.email"
+            placeholder="Email (required)"
+          />
         </el-form-item>
         <el-form-item label="Age" prop="age">
           <el-input-number v-model="interactModel.age" :min="0" :max="120" />
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" data-testid="form-submit" @click="submitForm">Submit</el-button>
+          <el-button
+            type="primary"
+            data-testid="form-submit"
+            @click="submitForm"
+            >Submit</el-button
+          >
         </el-form-item>
       </el-form>
       <div data-testid="picked-value-display">
@@ -46,8 +57,14 @@
 
     <section data-testid="scenario-state">
       <h3>S3: State Variation (strict/loose validation)</h3>
-      <el-button data-testid="form-toggle-strict" @click="strictMode = !strictMode">
-        Toggle validation: <span data-testid="state-indicator">{{ strictMode ? 'strict' : 'loose' }}</span>
+      <el-button
+        data-testid="form-toggle-strict"
+        @click="strictMode = !strictMode"
+      >
+        Toggle validation:
+        <span data-testid="state-indicator">{{
+          strictMode ? 'strict' : 'loose'
+        }}</span>
       </el-button>
       <el-form
         data-testid="form-state-target"
@@ -63,6 +80,23 @@
         </el-form-item>
       </el-form>
     </section>
+
+    <section data-testid="scenario-cat4-form-input-rename">
+      <h3>
+        S4: cat4 fixture - Form input testid rename drift (post-freeze refactor)
+      </h3>
+      <p>
+        Spec was frozen with selector
+        <code>data-testid="form-input-username"</code>. UI refactor renamed the
+        testid to
+        <code>data-testid="cat4-form-input-rename-form-input-user-id"</code>.
+        Spec selector now fails to resolve.
+      </p>
+      <el-input
+        data-testid="cat4-form-input-rename-form-input-user-id"
+        placeholder="User ID (renamed from username)"
+      />
+    </section>
   </div>
 </template>
 
@@ -74,15 +108,45 @@ const basicModel = reactive({ name: '', email: '', age: 18 })
 const interactModel = reactive({ name: '', email: '', age: 18 })
 const stateModel = reactive({ name: '', email: '' })
 
+const asyncEmailValidator = (
+  _rule: unknown,
+  value: string,
+  callback: (err?: Error) => void
+) => {
+  setTimeout(() => {
+    if (!value || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+      callback(new Error('Valid email required'))
+    } else {
+      callback()
+    }
+  }, 1000)
+}
 const interactRules: FormRules = {
   name: [{ required: true, message: 'Name required', trigger: 'blur' }],
-  email: [{ required: true, type: 'email', message: 'Valid email required', trigger: 'blur' }],
-  age: [{ required: true, type: 'number', min: 1, message: 'Age > 0', trigger: 'change' }],
+  email: [{ required: true, validator: asyncEmailValidator, trigger: 'blur' }],
+  age: [
+    {
+      required: true,
+      type: 'number',
+      min: 1,
+      message: 'Age > 0',
+      trigger: 'change',
+    },
+  ],
 }
 
 const strictRules: FormRules = {
-  name: [{ required: true, min: 3, message: 'Name min 3 chars', trigger: 'blur' }],
-  email: [{ required: true, type: 'email', message: 'Valid email required', trigger: 'blur' }],
+  name: [
+    { required: true, min: 3, message: 'Name min 3 chars', trigger: 'blur' },
+  ],
+  email: [
+    {
+      required: true,
+      type: 'email',
+      message: 'Valid email required',
+      trigger: 'blur',
+    },
+  ],
 }
 const looseRules: FormRules = {
   name: [{ required: false, trigger: 'blur' }],
@@ -105,7 +169,20 @@ const submitForm = async () => {
 </script>
 
 <style scoped>
-.demo-page { padding: 24px; font-family: system-ui; }
-section { margin-top: 16px; display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
-section h3 { width: 100%; margin-bottom: 8px; color: #606266; }
+.demo-page {
+  padding: 24px;
+  font-family: system-ui;
+}
+section {
+  margin-top: 16px;
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+section h3 {
+  width: 100%;
+  margin-bottom: 8px;
+  color: #606266;
+}
 </style>

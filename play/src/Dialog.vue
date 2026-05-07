@@ -4,10 +4,16 @@
 
     <section data-testid="scenario-basic">
       <h3>S1: Basic Render (Trigger Button)</h3>
-      <el-button data-testid="btn-open-dialog" type="primary" @click="visible = true">
+      <el-button
+        data-testid="btn-open-dialog"
+        type="primary"
+        @click="visible = true"
+      >
         Open Dialog
       </el-button>
-      <div data-testid="dialog-state">State: {{ visible ? 'open' : 'closed' }}</div>
+      <div data-testid="dialog-state">
+        State: {{ visible ? 'open' : 'closed' }}
+      </div>
     </section>
 
     <el-dialog
@@ -18,10 +24,14 @@
     >
       <div data-testid="dialog-body">
         <p>Are you sure you want to proceed?</p>
-        <p>Message count: <span data-testid="dialog-count">{{ acks }}</span></p>
+        <p>
+          Message count: <span data-testid="dialog-count">{{ acks }}</span>
+        </p>
       </div>
       <template #footer>
-        <el-button data-testid="btn-cancel" @click="visible = false">Cancel</el-button>
+        <el-button data-testid="btn-cancel" @click="visible = false"
+          >Cancel</el-button
+        >
         <el-button data-testid="btn-confirm" type="primary" @click="confirm">
           Confirm
         </el-button>
@@ -34,11 +44,21 @@
     </section>
 
     <section data-testid="scenario-state">
-      <h3>S3: State Variation (fullscreen toggle — observable without opening)</h3>
-      <el-button data-testid="dialog-toggle-fullscreen" @click="fullscreen = !fullscreen">
-        Toggle fullscreen: <span data-testid="state-indicator">{{ fullscreen ? 'fullscreen' : 'normal' }}</span>
+      <h3>
+        S3: State Variation (fullscreen toggle — observable without opening)
+      </h3>
+      <el-button
+        data-testid="dialog-toggle-fullscreen"
+        @click="fullscreen = !fullscreen"
+      >
+        Toggle fullscreen:
+        <span data-testid="state-indicator">{{
+          fullscreen ? 'fullscreen' : 'normal'
+        }}</span>
       </el-button>
-      <el-button data-testid="dialog-open-state" @click="stateVisible = true">Open state dialog</el-button>
+      <el-button data-testid="dialog-open-state" @click="stateVisible = true"
+        >Open state dialog</el-button
+      >
       <el-dialog
         v-model="stateVisible"
         :fullscreen="fullscreen"
@@ -47,9 +67,29 @@
       >
         <p>Fullscreen prop: {{ fullscreen }}</p>
         <template #footer>
-          <el-button data-testid="btn-close-state" @click="stateVisible = false">Close</el-button>
+          <el-button data-testid="btn-close-state" @click="stateVisible = false"
+            >Close</el-button
+          >
         </template>
       </el-dialog>
+    </section>
+
+    <section data-testid="scenario-cat4-dialog-close-class">
+      <h3>
+        S4: cat4 fixture - Dialog close button class drift (post-freeze
+        refactor)
+      </h3>
+      <p>
+        Spec was frozen with selector <code>data-testid="btn-close"</code> (or
+        <code>.btn-close</code> class). UI refactor renamed to
+        <code>data-testid="cat4-dialog-close-class-dialog-close-btn"</code> with
+        class <code>.dialog-close-btn</code>. Spec selector no longer resolves.
+      </p>
+      <el-button
+        data-testid="cat4-dialog-close-class-dialog-close-btn"
+        class="dialog-close-btn"
+        >Close (renamed)</el-button
+      >
     </section>
   </div>
 </template>
@@ -70,7 +110,20 @@ const stateVisible = ref(false)
 </script>
 
 <style scoped>
-.demo-page { padding: 24px; font-family: system-ui; }
-section { margin-top: 16px; display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
-section h3 { width: 100%; margin-bottom: 8px; color: #606266; }
+.demo-page {
+  padding: 24px;
+  font-family: system-ui;
+}
+section {
+  margin-top: 16px;
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+section h3 {
+  width: 100%;
+  margin-bottom: 8px;
+  color: #606266;
+}
 </style>

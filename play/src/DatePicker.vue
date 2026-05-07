@@ -52,6 +52,48 @@
         />
       </div>
     </section>
+
+    <section data-testid="scenario-cat1-clear-bug">
+      <h3>S5: cat1 fixture — clear button broken (synthetic seeded bug)</h3>
+      <el-button data-testid="datepicker-set-then-clear" @click="setThenClear">
+        Set 2026-02-20 then Clear
+      </el-button>
+      <div data-testid="picked-value-display">
+        Stored value (should be empty after clear): "<span
+          data-testid="picked-value"
+          >{{ bugClearValue }}</span
+        >"
+      </div>
+    </section>
+
+    <section data-testid="scenario-cat1-format-bug">
+      <h3>S4: cat1 fixture — date format mismatch (synthetic seeded bug)</h3>
+      <el-button data-testid="datepicker-set-fixed" @click="setFixedDate">
+        Set 2026-01-15
+      </el-button>
+      <div data-testid="picked-value-display">
+        Stored value (should be ISO YYYY-MM-DD):
+        <span data-testid="picked-value">{{ bugDateValue }}</span>
+      </div>
+    </section>
+
+    <section data-testid="scenario-cat4-date-picker-year-rename">
+      <h3>
+        S4: cat4 fixture - DatePicker year-cell testid rename (post-freeze
+        refactor)
+      </h3>
+      <p>
+        Spec was frozen with selector <code>data-testid="year-2024"</code>. UI
+        refactor renamed to
+        <code>data-testid="cat4-date-picker-year-rename-year-cell-2024"</code>.
+        Spec selector no longer resolves.
+      </p>
+      <div class="cat4-year-cell-row">
+        <span data-testid="cat4-date-picker-year-rename-year-cell-2024"
+          >2024 (renamed from year-2024)</span
+        >
+      </div>
+    </section>
   </div>
 </template>
 
@@ -69,6 +111,24 @@ function cyclePickerType() {
   const i = pickerTypes.indexOf(currentPickerType.value)
   currentPickerType.value = pickerTypes[(i + 1) % pickerTypes.length]
   stateValue.value = ''
+}
+
+// Synthetic seeded bug: button stores date in MM/DD/YYYY format instead of ISO YYYY-MM-DD.
+// Expected: bugDateValue === '2026-01-15'
+// Actual: bugDateValue === '01/15/2026'
+const bugDateValue = ref('(none)')
+function setFixedDate() {
+  // BUG: should store '2026-01-15' but stores US format
+  bugDateValue.value = '01/15/2026'
+}
+
+// Synthetic seeded bug: clear button stores intermediate value but doesn't clear.
+// Expected: bugClearValue = '' after clear
+// Actual: bugClearValue = '2026-02-20' (set value, then ignore clear)
+const bugClearValue = ref('')
+function setThenClear() {
+  bugClearValue.value = '2026-02-20'
+  // BUG: clear step missing — value remains
 }
 </script>
 
