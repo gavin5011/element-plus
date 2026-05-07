@@ -37,16 +37,17 @@
         rendering mutation)
       </h3>
       <p>
-        Active CSS mutation on the inner bar: `transform: scaleX(0.999)
+        Active CSS mutation on the inner bar: `transform: scaleX(0.95)
         translateZ(0)`. Functional behavior unchanged (aria-valuenow and
-        percentage text correct). Visual screenshot diff present (sub-pixel
-        anti-aliasing variance). cat2 = visual-only diff in supported
-        environment.
+        percentage text correct). Visual screenshot diff present (small
+        deterministic width rendering diff). cat2 = visual-only diff in
+        supported environment.
       </p>
       <div
         class="cat2-progress-wrapper"
         data-testid="cat2-progress-bar-wrapper"
         :aria-valuenow="60"
+        style="width: 320px"
       >
         <el-progress
           data-testid="cat2-progress-bar"
@@ -98,10 +99,10 @@ section h3 {
   margin-bottom: 8px;
   color: #606266;
 }
-/* cat2 mutation: sub-pixel transform produces rendering diff vs baseline screenshot.
-   Functional behavior unchanged. */
+/* cat2 mutation: small deterministic width rendering diff vs baseline screenshot.
+   Functional behavior unchanged (aria-valuenow + percentage text remain correct). */
 .cat2-progress-wrapper :deep(.el-progress-bar__inner) {
-  transform: scaleX(0.999) translateZ(0);
+  transform: scaleX(0.95) translateZ(0);
   transform-origin: left center;
 }
 </style>
