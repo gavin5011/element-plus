@@ -19,20 +19,50 @@
         <el-checkbox value="Cherry" label="Cherry" />
       </el-checkbox-group>
       <div data-testid="picked-value-display">
-        Value: <span data-testid="picked-value">{{ pickedValue.join(', ') || '(none)' }}</span>
+        Value:
+        <span data-testid="picked-value">{{
+          pickedValue.join(', ') || '(none)'
+        }}</span>
       </div>
     </section>
 
     <section data-testid="scenario-state">
       <h3>S3: State Variation (disabled toggle)</h3>
-      <el-button data-testid="checkbox-toggle-disabled" @click="disabled = !disabled">
-        Toggle disabled: <span data-testid="state-indicator">{{ disabled ? 'disabled' : 'enabled' }}</span>
+      <el-button
+        data-testid="checkbox-toggle-disabled"
+        @click="disabled = !disabled"
+      >
+        Toggle disabled:
+        <span data-testid="state-indicator">{{
+          disabled ? 'disabled' : 'enabled'
+        }}</span>
       </el-button>
-      <el-checkbox-group data-testid="checkbox-state-target" v-model="stateValue" :disabled="disabled">
+      <el-checkbox-group
+        data-testid="checkbox-state-target"
+        v-model="stateValue"
+        :disabled="disabled"
+      >
         <el-checkbox value="Apple" label="Apple" />
         <el-checkbox value="Banana" label="Banana" />
         <el-checkbox value="Cherry" label="Cherry" />
       </el-checkbox-group>
+    </section>
+
+    <section data-testid="scenario-cat1-vmodel-mismatch">
+      <h3>
+        S4: cat1 fixture — Checkbox v-model state mismatch (active realistic
+        functional bug)
+      </h3>
+      <el-checkbox
+        data-testid="cb-controlled"
+        :model-value="cbControlled"
+        label="controlled-toggle"
+        @change="onCbChange"
+      />
+      <div data-testid="picked-value-display">
+        Bound model (should be 'true' after click):
+        <span data-testid="picked-value">{{ String(cbControlled) }}</span>
+      </div>
     </section>
   </div>
 </template>
@@ -44,10 +74,33 @@ const basicValue = ref<string[]>([])
 const pickedValue = ref<string[]>([])
 const stateValue = ref<string[]>(['Apple'])
 const disabled = ref(false)
+
+// cat1 fixture: controlled checkbox with reversed v-model handler.
+// Expected: clicking toggles cbControlled false→true.
+// Actual (with this seeded bug): handler inverts the new value before assignment,
+// so the bound model stays false after click → cat1 functional regression in supported env.
+const cbControlled = ref(false)
+function onCbChange(newValue: boolean): void {
+  // Bug: should be `cbControlled.value = newValue` but is reversed.
+  cbControlled.value = !newValue
+}
 </script>
 
 <style scoped>
-.demo-page { padding: 24px; font-family: system-ui; }
-section { margin-top: 16px; display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
-section h3 { width: 100%; margin-bottom: 8px; color: #606266; }
+.demo-page {
+  padding: 24px;
+  font-family: system-ui;
+}
+section {
+  margin-top: 16px;
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+section h3 {
+  width: 100%;
+  margin-bottom: 8px;
+  color: #606266;
+}
 </style>
