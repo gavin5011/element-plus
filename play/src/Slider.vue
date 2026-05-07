@@ -28,7 +28,10 @@
     <section data-testid="scenario-state">
       <h3>S3: State Variation (range/single toggle)</h3>
       <el-button data-testid="slider-toggle-range" @click="toggleRange">
-        Toggle mode: <span data-testid="state-indicator">{{ rangeMode ? 'range' : 'single' }}</span>
+        Toggle mode:
+        <span data-testid="state-indicator">{{
+          rangeMode ? 'range' : 'single'
+        }}</span>
       </el-button>
       <el-slider
         v-if="!rangeMode"
@@ -46,6 +49,18 @@
         range
       />
     </section>
+
+    <section data-testid="scenario-cat1-slider-clamp">
+      <h3>S5: cat1 fixture - Slider clamp inversion</h3>
+      <p>Click "Set 50": handler clamps to max instead.</p>
+      <el-button data-testid="cat1-slider-set-50" @click="cat1SliderSet50"
+        >Set 50</el-button
+      >
+      <span
+        >Value:
+        <span data-testid="cat1-slider-value">{{ cat1SliderValue }}</span></span
+      >
+    </section>
   </div>
 </template>
 
@@ -61,10 +76,29 @@ const rangeMode = ref(false)
 const toggleRange = () => {
   rangeMode.value = !rangeMode.value
 }
+
+const cat1SliderValue = ref(0)
+function cat1SliderSet50() {
+  // Bug: should set to 50 but inverted clamp pushes to 100 (max)
+  cat1SliderValue.value = 100
+}
 </script>
 
 <style scoped>
-.demo-page { padding: 24px; font-family: system-ui; }
-section { margin-top: 16px; display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
-section h3 { width: 100%; margin-bottom: 8px; color: #606266; }
+.demo-page {
+  padding: 24px;
+  font-family: system-ui;
+}
+section {
+  margin-top: 16px;
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+section h3 {
+  width: 100%;
+  margin-bottom: 8px;
+  color: #606266;
+}
 </style>

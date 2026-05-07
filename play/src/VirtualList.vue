@@ -49,6 +49,27 @@
         </li>
       </ul>
     </section>
+
+    <section data-testid="scenario-cat5-findlast">
+      <h3>
+        S5: cat5 fixture - Array.findLast capability gap (Chrome 97+ only)
+      </h3>
+      <p>
+        Click triggers Array.prototype.findLast() on alphabet. Older browsers
+        throw TypeError.
+      </p>
+      <el-button
+        data-testid="cat5-findlast-trigger"
+        @click="cat5FindLastHandler"
+        >FindLast</el-button
+      >
+      <span
+        >Result:
+        <span data-testid="cat5-findlast-result">{{
+          cat5FindLastResult
+        }}</span></span
+      >
+    </section>
   </div>
 </template>
 
@@ -68,6 +89,18 @@ function cat5Sort() {
   const arr: any[] = [...initialItems]
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   sortedItems.value = (arr as any).toSorted()
+}
+
+const cat5FindLastResult = ref('idle')
+function cat5FindLastHandler() {
+  try {
+    const arr = ['alpha', 'beta', 'gamma', 'zeta']
+    // @ts-expect-error: intentional capability probe
+    const last = arr.findLast((x) => x.startsWith('z'))
+    if (last === 'zeta') cat5FindLastResult.value = 'found-zeta'
+  } catch (e) {
+    cat5FindLastResult.value = 'error: ' + (e as Error).message
+  }
 }
 </script>
 

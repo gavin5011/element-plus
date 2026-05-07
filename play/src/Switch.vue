@@ -78,6 +78,22 @@
         <el-switch v-model="cat4WrapperSwitch" />
       </div>
     </section>
+
+    <section data-testid="scenario-cat1-switch-inversion">
+      <h3>S5: cat1 fixture - Switch state inversion</h3>
+      <p>Click toggle: handler is inverted, state stays at "off".</p>
+      <el-button
+        data-testid="cat1-switch-inversion-trigger"
+        @click="cat1SwitchToggle"
+        >Click</el-button
+      >
+      <span
+        >State:
+        <span data-testid="cat1-switch-inversion-state">{{
+          cat1SwitchState
+        }}</span></span
+      >
+    </section>
   </div>
 </template>
 
@@ -102,6 +118,12 @@ function onBugSwitchUpdate(_v: boolean) {
 // Expected: 'ON'
 // Actual: 'OFF'
 const buggyActiveLabel = ref<string>('OFF')
+
+const cat1SwitchState = ref('off')
+function cat1SwitchToggle() {
+  // Inverted bug: should set to 'on' but sets to 'off'
+  cat1SwitchState.value = 'off'
+}
 </script>
 
 <style scoped>

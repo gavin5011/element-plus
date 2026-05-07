@@ -43,10 +43,7 @@
       <h3>S3: State Variation (multiple toggle)</h3>
       <el-button
         data-testid="select-toggle-multiple"
-        @click="
-          multiple = !multiple
-          stateValue = multiple ? [] : ''
-        "
+        @click="toggleMultipleState"
       >
         Toggle mode:
         <span data-testid="state-indicator">{{
@@ -105,6 +102,11 @@ const basicValue = ref('')
 const pickedValue = ref('')
 const multiple = ref(false)
 const stateValue = ref<string | string[]>('')
+
+function toggleMultipleState() {
+  multiple.value = !multiple.value
+  stateValue.value = multiple.value ? [] : ''
+}
 </script>
 
 <style scoped>

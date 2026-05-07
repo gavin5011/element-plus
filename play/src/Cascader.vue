@@ -97,6 +97,27 @@
         ></div>
       </div>
     </section>
+
+    <section data-testid="scenario-cat5-structured-clone">
+      <h3>
+        S6: cat5 fixture - structuredClone capability gap (Chrome 98+ only)
+      </h3>
+      <p>
+        Click triggers structuredClone() on a sample object. Older browsers
+        throw ReferenceError.
+      </p>
+      <el-button
+        data-testid="cat5-structured-clone-trigger"
+        @click="cat5StructuredCloneHandler"
+        >Clone</el-button
+      >
+      <span
+        >Result:
+        <span data-testid="cat5-structured-clone-result">{{
+          cat5StructuredCloneResult
+        }}</span></span
+      >
+    </section>
   </div>
 </template>
 
@@ -156,6 +177,19 @@ const basicValue = ref<string[]>([])
 const pickedPath = ref<string[]>([])
 const cascaderDisabled = ref(false)
 const stateValue = ref<string[]>([])
+
+const cat5StructuredCloneResult = ref('idle')
+function cat5StructuredCloneHandler() {
+  try {
+    // structuredClone is unsupported in Chrome <98 / Edge <99
+    // @ts-expect-error: intentional capability probe
+    const cloned = structuredClone({ a: 1, nested: { b: 2 } })
+    if (cloned.nested.b === 2)
+      cat5StructuredCloneResult.value = 'cloned-success'
+  } catch (e) {
+    cat5StructuredCloneResult.value = 'error: ' + (e as Error).message
+  }
+}
 </script>
 
 <style scoped>
