@@ -94,6 +94,28 @@
         </template>
       </el-dropdown>
     </section>
+
+    <section data-testid="scenario-cat3-dropdown-overflow">
+      <h3>cat3 fixture - Dropdown menu overflow clip coupling</h3>
+      <p>
+        Visual mutation creates overlay/clip; functional click
+        intercepted/clipped.
+      </p>
+      <div
+        style="
+          overflow: hidden;
+          height: 30px;
+          width: 200px;
+          border: 1px solid #ccc;
+        "
+      >
+        <div style="margin-top: 60px">
+          <el-button data-testid="cat3-dropdown-menu-item-X"
+            >Menu item X</el-button
+          >
+        </div>
+      </div>
+    </section>
   </div>
 </template>
 

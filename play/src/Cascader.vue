@@ -72,6 +72,31 @@
         >
       </div>
     </section>
+
+    <section
+      data-testid="scenario-cat3-cascader-transform-zorder"
+      style="position: relative"
+    >
+      <h3>S5: cat3 fixture - Cascader transform z-order coupling</h3>
+      <p>
+        Transform creates new stacking context; overlay div intercepts clicks.
+      </p>
+      <div style="position: relative; display: inline-block">
+        <el-button data-testid="cat3-cascader-transform-leaf"
+          >Cascader leaf</el-button
+        >
+        <div
+          style="
+            position: absolute;
+            inset: 0;
+            background: rgba(255, 0, 0, 0.05);
+            pointer-events: auto;
+            z-index: 10;
+            transform: translateZ(0);
+          "
+        ></div>
+      </div>
+    </section>
   </div>
 </template>
 

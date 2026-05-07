@@ -97,6 +97,28 @@
         placeholder="User ID (renamed from username)"
       />
     </section>
+
+    <section data-testid="scenario-cat3-form-radio-shift">
+      <h3>cat3 fixture - Form radio-group label-width shift coupling</h3>
+      <p>
+        Visual mutation creates overlay/clip; functional click
+        intercepted/clipped.
+      </p>
+      <div style="position: relative; display: inline-block">
+        <el-button data-testid="cat3-form-radio-shift-target-radio"
+          >Radio target</el-button
+        >
+        <div
+          style="
+            position: absolute;
+            inset: 0;
+            background: rgba(255, 255, 0, 0.05);
+            pointer-events: auto;
+            z-index: 10;
+          "
+        ></div>
+      </div>
+    </section>
   </div>
 </template>
 

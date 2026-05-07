@@ -9,7 +9,12 @@
         v-model="basicValue"
         placeholder="Pick a fruit"
       >
-        <el-option v-for="o in options" :key="o.value" :label="o.label" :value="o.value" />
+        <el-option
+          v-for="o in options"
+          :key="o.value"
+          :label="o.label"
+          :value="o.value"
+        />
       </el-select>
     </section>
 
@@ -21,17 +26,32 @@
         placeholder="Select one"
         clearable
       >
-        <el-option v-for="o in options" :key="o.value" :label="o.label" :value="o.value" />
+        <el-option
+          v-for="o in options"
+          :key="o.value"
+          :label="o.label"
+          :value="o.value"
+        />
       </el-select>
       <div data-testid="picked-value-display">
-        Value: <span data-testid="picked-value">{{ pickedValue || '(none)' }}</span>
+        Value:
+        <span data-testid="picked-value">{{ pickedValue || '(none)' }}</span>
       </div>
     </section>
 
     <section data-testid="scenario-state">
       <h3>S3: State Variation (multiple toggle)</h3>
-      <el-button data-testid="select-toggle-multiple" @click="multiple = !multiple; stateValue = multiple ? [] : ''">
-        Toggle mode: <span data-testid="state-indicator">{{ multiple ? 'multiple' : 'single' }}</span>
+      <el-button
+        data-testid="select-toggle-multiple"
+        @click="
+          multiple = !multiple
+          stateValue = multiple ? [] : ''
+        "
+      >
+        Toggle mode:
+        <span data-testid="state-indicator">{{
+          multiple ? 'multiple' : 'single'
+        }}</span>
       </el-button>
       <el-select
         data-testid="select-state-target"
@@ -39,8 +59,33 @@
         :multiple="multiple"
         placeholder="State-variant"
       >
-        <el-option v-for="o in options" :key="o.value" :label="o.label" :value="o.value" />
+        <el-option
+          v-for="o in options"
+          :key="o.value"
+          :label="o.label"
+          :value="o.value"
+        />
       </el-select>
+    </section>
+
+    <section data-testid="scenario-cat3-select-fixed-pos">
+      <h3>cat3 fixture - Select fixed-positioning mismatch coupling</h3>
+      <p>
+        Visual mutation creates overlay/clip; functional click
+        intercepted/clipped.
+      </p>
+      <div style="position: relative; display: inline-block">
+        <el-button data-testid="cat3-select-option-A">Option A</el-button>
+        <div
+          style="
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 255, 0, 0.05);
+            pointer-events: auto;
+            z-index: 10;
+          "
+        ></div>
+      </div>
     </section>
   </div>
 </template>
@@ -63,7 +108,20 @@ const stateValue = ref<string | string[]>('')
 </script>
 
 <style scoped>
-.demo-page { padding: 24px; font-family: system-ui; }
-section { margin-top: 16px; display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
-section h3 { width: 100%; margin-bottom: 8px; color: #606266; }
+.demo-page {
+  padding: 24px;
+  font-family: system-ui;
+}
+section {
+  margin-top: 16px;
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+section h3 {
+  width: 100%;
+  margin-bottom: 8px;
+  color: #606266;
+}
 </style>

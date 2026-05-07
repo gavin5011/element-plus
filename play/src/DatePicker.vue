@@ -94,6 +94,29 @@
         >
       </div>
     </section>
+
+    <section data-testid="scenario-cat3-date-picker-clip">
+      <h3>
+        cat3 fixture - DatePicker panel clip coupling (overflow:hidden parent
+        clips date cell)
+      </h3>
+      <p>
+        Visual mutation creates overlay/clip; functional click
+        intercepted/clipped.
+      </p>
+      <div
+        style="
+          overflow: hidden;
+          height: 30px;
+          width: 200px;
+          border: 1px solid #ccc;
+        "
+      >
+        <div style="margin-top: 50px">
+          <el-button data-testid="cat3-date-cell-15">Date 15</el-button>
+        </div>
+      </div>
+    </section>
   </div>
 </template>
 

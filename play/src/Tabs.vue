@@ -94,6 +94,28 @@
         </el-tab-pane>
       </el-tabs>
     </section>
+
+    <section data-testid="scenario-cat3-tabs-gap-shift">
+      <h3>cat3 fixture - Tabs gap shift breaks position coupling</h3>
+      <p>
+        Visual mutation creates overlay/clip; functional click
+        intercepted/clipped.
+      </p>
+      <div style="position: relative; display: inline-block">
+        <el-button data-testid="cat3-tabs-gap-shift-button"
+          >Tab button</el-button
+        >
+        <div
+          style="
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 255, 0.05);
+            pointer-events: auto;
+            z-index: 10;
+          "
+        ></div>
+      </div>
+    </section>
   </div>
 </template>
 

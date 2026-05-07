@@ -78,6 +78,26 @@
         >Async content loaded</span
       >
     </section>
+
+    <section data-testid="scenario-cat3-tooltip-zindex">
+      <h3>cat3 fixture - Tooltip z-index overlap coupling</h3>
+      <p>
+        Visual mutation creates overlay/clip; functional click
+        intercepted/clipped.
+      </p>
+      <div style="position: relative; display: inline-block">
+        <el-button data-testid="cat3-tooltip-zindex-trigger">Trigger</el-button>
+        <div
+          style="
+            position: absolute;
+            inset: 0;
+            background: rgba(255, 0, 255, 0.05);
+            pointer-events: auto;
+            z-index: 10;
+          "
+        ></div>
+      </div>
+    </section>
   </div>
 </template>
 
